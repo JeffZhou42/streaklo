@@ -1,5 +1,3 @@
-# streaklo
+Streaklo
 
-Hackathon project
-Idk what to put here
-Test
+MERN stack project for GTHacks 11.0
