@@ -1,5 +1,5 @@
 .habits-page {
-  background-color: #f0f2f5;
+  background-color: black;
   min-height: 100vh;
   font-family: Arial, sans-serif;
 }
@@ -26,6 +26,23 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.add-habit-button {
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: auto; /* This pushes the button to the left */
+}
+
+.add-habit-button:hover {
+  background-color: #166fe5;
 }
 
 .habits-header h1 {
@@ -118,10 +135,10 @@
 .habit-container {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(255,255,255,0.1);
   padding: 20px;
-  max-width: 600px;
-  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .habit-container h2 {
@@ -190,4 +207,14 @@
   margin-top: 20px;
   font-size: 1.1rem;
   padding: 12px;
+}
+
+.habits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: black;
 }
