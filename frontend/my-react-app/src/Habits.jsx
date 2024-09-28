@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Habits.css';
 
@@ -33,14 +33,44 @@ function HabitContainer({ title, emoji, goal, streak, progress, rank, friends })
 }
 
 function Habits() {
+  const [isAddingHabit, setIsAddingHabit] = useState(false);
+  const [newHabit, setNewHabit] = useState('');
+
+  const handleAddHabit = () => {
+    if (isAddingHabit && newHabit.trim()) {
+      // Add the new habit logic here
+      console.log('New habit:', newHabit);
+      setNewHabit('');
+    }
+    setIsAddingHabit(!isAddingHabit);
+  };
+
   return (
     <div className="habits-page">
       <header className="habits-header">
-        <button className="add-habit-button">Add Habit +</button>
+        <div className="add-habit-container">
+          <button 
+            className={`add-habit-button ${isAddingHabit ? 'active' : ''}`} 
+            onClick={handleAddHabit}
+          >
+            <span className="add-habit-icon">+</span>
+            {isAddingHabit ? 'Add' : 'Add habit'}
+          </button>
+          {isAddingHabit && (
+            <input
+              type="text"
+              className="add-habit-input"
+              value={newHabit}
+              onChange={(e) => setNewHabit(e.target.value)}
+              placeholder="Enter new habit"
+              autoFocus
+            />
+          )}
+        </div>
         <nav>
-          <Link to="/">Home 🏠</Link>
-          <Link to="/user">User 👤</Link>
-          <Link to="/habits" className="active">Habit 📊</Link>
+          <Link to="/">Home</Link>
+          <Link to="/user">User</Link>
+          <Link to="/habits" className="active">Habit</Link>
         </nav>
       </header>
       <div className="habits-grid">
