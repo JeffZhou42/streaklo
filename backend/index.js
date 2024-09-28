@@ -25,6 +25,23 @@ app.post('/getHabit', (req, res) => {
     .catch(err => res.json(err))
 })
 
+app.delete('/getHabit/:id', (req, res) => {
+
+    if (ObjectId.isValid(req.params.id)) {
+        db.collection('books')
+        .deleteOne({_id: new ObjectId(req.params.id)})
+        .then(result => {
+            res.status(200).json(result)
+        })
+        .catch(err => {
+            res.status(500).json({error: 'Could not delete the document'})
+        })
+    } else {
+        res.status(500).json({error: 'Not a valid document ID.'})
+    }
+
+})
+
 app.patch('/getHabit/:id', (req, res) => {
     const updates = req.body
 
