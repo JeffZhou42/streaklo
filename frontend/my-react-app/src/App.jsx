@@ -6,7 +6,7 @@ import Habits from "./Habits";
 import axios from "axios";
 
 function App() {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState([{name: "John"}]);
 
   useEffect(() => {
     axios
@@ -39,9 +39,7 @@ function App() {
                 <header className="greeting-header">
                   <div className="greeting-wrapper">
                     <h1 className="greeting">
-                      {"hi," +
-                        user[0].name +
-                        " what's today going to look like?"}
+                      {"hi," + user[0].name + " what's today going to look like?"}
                     </h1>
                   </div>
                 </header>
