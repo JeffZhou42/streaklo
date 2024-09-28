@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const cors = require("cors")
 const UserModel = require("./models/User")
 const HabitModel = require("./models/Habit")
+const ObjectId = require('mongodb').ObjectId;
 
 const app = express()
 app.use(cors())
@@ -25,7 +26,6 @@ app.post('/getHabit', (req, res) => {
     .catch(err => res.json(err))
 })
 
-//issue with ID
 app.delete('/getHabit/:id', (req, res) => {
 
     if (ObjectId.isValid(req.params.id)) {
