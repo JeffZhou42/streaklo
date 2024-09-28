@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
     //list of habits + streak for each habit
     habits: [{
         habit: String,
-        streak: Number
+        streak: Number,
+        timeSinceLastPost: Number
     }]
 })
 
