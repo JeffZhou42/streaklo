@@ -5,7 +5,7 @@ const HabitSchema = new mongoose.Schema({
     //streaks stored, personal streaks and friend streaks (combined)
     personalStreak: Number,
     imageList: [{
-        dailyImage: binData,
+        dailyImage: String,
         imageTime: Number
     }],
     //for demo, add images to preset daily image list

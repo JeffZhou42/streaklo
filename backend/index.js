@@ -20,15 +20,16 @@ app.get('/getHabit', (req, res) => {
 app.post('/getHabit', (req, res) => {
     const habit = req.body
 
-    HabitModel.insertOne(habit)
+    HabitModel.create(habit)
     .then(habits => res.json(habits))
     .catch(err => res.json(err))
 })
 
+//issue with ID
 app.delete('/getHabit/:id', (req, res) => {
 
     if (ObjectId.isValid(req.params.id)) {
-        HabitModel.deleteOne({_id: new ObjectId(req.params.id)})
+        HabitModel.findByIdAndDelete({_id: new ObjectId(req.params.id)})
         .then(result => {
             res.status(200).json(result)
         })
@@ -45,7 +46,7 @@ app.patch('/getHabit/:id', (req, res) => {
     const updates = req.body
 
     if (ObjectId.isValid(req.params.id)) {
-        HabitModel.updateOne({_id: new ObjectId(req.params.id)}, {$set: updates})
+        HabitModel.findByIdAndUpdate({_id: new ObjectId(req.params.id)}, {$set: updates})
         .then(result => {
             res.status(200).json(result)
         })
