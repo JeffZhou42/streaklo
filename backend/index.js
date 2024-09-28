@@ -11,12 +11,6 @@ app.use(express.json());
 //const db = connectDB();
 
 mongoose.connect("mongodb://localhost:27017/test");
-//habit stuff
-app.get("/getHabit", (req, res) => {
-  HabitModel.find()
-    .then((habits) => res.json(habits))
-    .catch((err) => res.json(err));
-});
 
 //user stuff
 app.get("/getUser", (req, res) => {
@@ -35,7 +29,14 @@ app.put("/updateUserHabits/:habit", (req, res) => {
 
 })
 
-app.post('/getHabit', (req, res) => {
+//habit stuff
+app.get("/getHabit", (req, res) => {
+    HabitModel.find()
+      .then((habits) => res.json(habits))
+      .catch((err) => res.json(err));
+});
+
+app.post('/addHabit', (req, res) => {
     const habit = req.body
 
     HabitModel.create(habit)
@@ -43,7 +44,7 @@ app.post('/getHabit', (req, res) => {
     .catch(err => res.json(err))
 })
 
-app.delete('/getHabit/:id', (req, res) => {
+app.delete('/deleteHabit/:id', (req, res) => {
 
     if (ObjectId.isValid(req.params.id)) {
         HabitModel.findByIdAndDelete({_id: new ObjectId(req.params.id)})
@@ -59,7 +60,7 @@ app.delete('/getHabit/:id', (req, res) => {
 
 })
 
-app.patch('/getHabit/:id', (req, res) => {
+app.patch('/updateHabit/:id', (req, res) => {
     const updates = req.body
 
     if (ObjectId.isValid(req.params.id)) {
