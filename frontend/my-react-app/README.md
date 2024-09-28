@@ -1,3 +1,3 @@
 # Front End
 
-This code is for the hompage. Built with React.
+This code is for the homepage & habits page. Built with React
