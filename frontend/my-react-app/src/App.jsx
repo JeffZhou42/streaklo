@@ -5,6 +5,10 @@ import PhotoCarousel from "./PhotoCarousel";
 import Habits from "./Habits";
 import axios from "axios";
 
+if(true) {
+  
+}
+
 function App() {
   const [user, setUser] = useState([{name: "John"}]);
 
