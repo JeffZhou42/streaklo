@@ -2,14 +2,13 @@ const mongoose = require("mongoose")
 
 const UserSchema = new mongoose.Schema({
     name: String,
-    pfp: String,
     password: String,
     //list of habits + streak for each habit
-    habits: [{
-        habit: String,
+    habits: {
+        hab: String,
         streak: Number
-    }]
+    }
 })
 
-const UserModel = mongoose.model("todos", UserSchema)
+const UserModel = mongoose.model("user", UserSchema)
 module.exports = UserModel
