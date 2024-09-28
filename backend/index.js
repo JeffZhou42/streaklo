@@ -28,8 +28,7 @@ app.post('/getHabit', (req, res) => {
 app.delete('/getHabit/:id', (req, res) => {
 
     if (ObjectId.isValid(req.params.id)) {
-        db.collection('books')
-        .deleteOne({_id: new ObjectId(req.params.id)})
+        HabitModel.deleteOne({_id: new ObjectId(req.params.id)})
         .then(result => {
             res.status(200).json(result)
         })
