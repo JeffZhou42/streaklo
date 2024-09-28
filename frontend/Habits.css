@@ -1,0 +1,53 @@
+.habits-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #333; /* Gray background */
+  border-radius: 5px; /* Optional: rounded corners */
+}
+
+.habits-header {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.habits-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.habit-item {
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+
+.habits-link {
+  display: inline-flex;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  font-size: 2rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.habits-link:hover {
+  background-color: #444;
+}
+
+.plus-symbol {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.habits-text {
+  font-weight: bold;
+}
