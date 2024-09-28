@@ -1,3 +1,3 @@
-Streaklo
+#Streaklo
 
-MERN stack project for GTHacks 11.0
+Full-stack application using MERN tech stack (React, Node, Express, MongoDB). Built for GTHacks 11.0
