@@ -10,37 +10,12 @@ app.use(cors());
 app.use(express.json());
 //const db = connectDB();
 
-mongoose.connect("mongodb+srv://azhou322:Test1234@cluster0.67qj6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
-
-//user stuff
-app.get("/getUser", (req, res) => {
-  UserModel.find()
-  .then((result) => res.json(result))
-  .catch((err) => res.json(err));
-});
-
-app.put("/updateUserHabits/:habit", (req, res) => {
-    const {habit} = req.params;
-    console.log(habit)
-    
-    UserModel.findOneAndUpdate({name: "John"}, {habits: {hab: habit, streak: 0}} )
-    .then(result => res.json(result))
-    .catch(err => res.json(err))
-
-})
-
-//habit stuff
-app.get("/getHabit", (req, res) => {
-    HabitModel.find()
-      .then((result) => res.json(result))
-      .catch((err) => res.json(err));
-});
+mongoose.connect("mongodb+srv://rayzhao05:IllTacRsWWT9fod1@app.cpr6d.mongodb.net/test");
 
 app.post('/addHabit', (req, res) => {
     const habit = req.body
-
     HabitModel.create(habit)
-    .then(habits => res.json(habits))
+    .then(habit => console.log(habit))
     .catch(err => res.json(err))
 })
 
