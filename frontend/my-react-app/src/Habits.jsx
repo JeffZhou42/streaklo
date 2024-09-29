@@ -137,7 +137,7 @@ function Habits() {
   const handleSaveHabit = (habitData) => {
     const newHabitObject = {
       title: habitData.title,
-      emoji: "📌", // Default emoji
+      emoji: "", // Default emoji
       goal: habitData.goal,
       streak: 0,
       progress: 0,
