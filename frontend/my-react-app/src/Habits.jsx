@@ -58,18 +58,10 @@ function FriendsSidebar({ isOpen, onClose }) {
 function AddHabitModal({ isOpen, onClose, onSave }) {
   const [title, setTitle] = useState('');
   const handleAddHabit = () => {
-    axios
-      .post("http://localhost:3001/addHabit", { habitName: title })
-      .then((result) => location.reload())
-      .catch((err) => console.log(error));
   };
 }
   const [goal, setGoal] = useState('');
   const handleAddGoal = () => {
-    axios
-      .post("http://localhost:3001/addGoal", { goals: goal })
-      .then((result) => location.reload())
-      .catch((err) => console.log(error));
   const [friend, setFriend] = useState('');
   const [friends, setFriends] = useState([]);
 
@@ -77,10 +69,6 @@ function AddHabitModal({ isOpen, onClose, onSave }) {
     if (friend.trim()) {
       setFriends([...friends, friend.trim()]);
       setFriend('');
-      axios
-      .post("http://localhost:3001/addFriend", { friends: friends })
-      .then((result) => location.reload())
-      .catch((err) => console.log(error));
     }
   };
 
