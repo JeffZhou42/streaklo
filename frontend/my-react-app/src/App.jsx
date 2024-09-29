@@ -33,24 +33,6 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-<<<<<<< HEAD
-          <Route path="/" element={
-            <>
-              <header className="streaklo-header">
-                <h1 className="streaklo-text">Streaklo </h1>
-              </header>
-              <div className="greeting-header">
-                <h2 className="greeting">Good morning, John</h2>
-              </div>
-              <h3 className="recap-header">what you've missed:</h3>
-              <PhotoCarousel photos={photos} />
-              <Link to="/habits" className="habits-link">
-                <span className="plus-symbol">+</span>
-                <span className="habits-text">Habits</span>
-              </Link>
-            </>
-          } />
-=======
           <Route
             path="/"
             element={
@@ -71,7 +53,6 @@ function App() {
               </>
             }
           />
->>>>>>> 12c3781250c4d7ade394240907275f1d92aee498
           <Route path="/habits" element={<Habits />} />
         </Routes>
       </div>
