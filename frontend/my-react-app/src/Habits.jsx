@@ -55,6 +55,68 @@ function FriendsSidebar({ isOpen, onClose }) {
   );
 }
 
+function AddHabitModal({ isOpen, onClose, onSave }) {
+  const [title, setTitle] = useState('');
+  const [goal, setGoal] = useState('');
+  const [friend, setFriend] = useState('');
+  const [friends, setFriends] = useState([]);
+
+  const handleAddFriend = () => {
+    if (friend.trim()) {
+      setFriends([...friends, friend.trim()]);
+      setFriend('');
+    }
+  };
+
+  const handleSave = () => {
+    onSave({ title, goal, friends });
+    setTitle('');
+    setGoal('');
+    setFriends([]);
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <h2>Add New Habit</h2>
+        <input
+          type="text"
+          placeholder="Habit Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Goal"
+          value={goal}
+          onChange={(e) => setGoal(e.target.value)}
+        />
+        <div className="friend-input">
+          <input
+            type="text"
+            placeholder="Add Friend"
+            value={friend}
+            onChange={(e) => setFriend(e.target.value)}
+          />
+          <button onClick={handleAddFriend}>Add</button>
+        </div>
+        <ul className="friend-list">
+          {friends.map((f, index) => (
+            <li key={index}>{f}</li>
+          ))}
+        </ul>
+        <div className="modal-actions">
+          <button onClick={handleSave}>Save</button>
+          <button onClick={onClose}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Habits() {
   const [isAddingHabit, setIsAddingHabit] = useState(false);
   const [isDeletingHabit, setIsDeletingHabit] = useState(false);
@@ -62,22 +124,23 @@ function Habits() {
   const [habitToDelete, setHabitToDelete] = useState('');
   const [habits, setHabits] = useState([]);
   const [isFriendsSidebarOpen, setIsFriendsSidebarOpen] = useState(false);
+  const [isAddHabitModalOpen, setIsAddHabitModalOpen] = useState(false);
 
   const handleAddHabit = () => {
-    if (isAddingHabit && newHabit.trim()) {
-      const newHabitObject = {
-        title: newHabit,
-        emoji: "📌", // Default emoji
-        goal: "New goal",
-        streak: 0,
-        progress: 0,
-        rank: "New",
-        friends: []
-      };
-      setHabits([...habits, newHabitObject]);
-      setNewHabit('');
-    }
-    setIsAddingHabit(!isAddingHabit);
+    setIsAddHabitModalOpen(true);
+  };
+
+  const handleSaveHabit = (habitData) => {
+    const newHabitObject = {
+      title: habitData.title,
+      emoji: "📌", // Default emoji
+      goal: habitData.goal,
+      streak: 0,
+      progress: 0,
+      rank: "New",
+      friends: habitData.friends.map(name => ({ name, streak: 0, medal: '🥉' }))
+    };
+    setHabits([...habits, newHabitObject]);
   };
 
   const handleDeleteHabit = () => {
@@ -103,54 +166,14 @@ function Habits() {
     <div className="habits-page">
       <header className="habits-header">
         <div className="habit-actions">
-          <div className="add-habit-container">
-            <button 
-              className={`add-habit-button ${isAddingHabit ? 'active' : ''}`} 
-              onClick={handleAddHabit}
-            >
-              <span className="add-habit-icon">+</span>
-              {isAddingHabit ? 'Add' : 'Add habit'}
-            </button>
-            {isAddingHabit && (
-              <input
-                type="text"
-                className="add-habit-input"
-                value={newHabit}
-                onChange={(e) => setNewHabit(e.target.value)}
-                placeholder="Enter new habit"
-                autoFocus
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    handleAddHabit();
-                  }
-                }}
-              />
-            )}
-          </div>
-          <div className="delete-habit-container">
-            <button 
-              className={`delete-habit-button ${isDeletingHabit ? 'active' : ''}`} 
-              onClick={handleDeleteHabit}
-            >
-              <span className="delete-habit-icon">-</span>
-              {isDeletingHabit ? 'Delete' : 'Delete habit'}
-            </button>
-            {isDeletingHabit && (
-              <input
-                type="text"
-                className="delete-habit-input"
-                value={habitToDelete}
-                onChange={(e) => setHabitToDelete(e.target.value)}
-                placeholder="Enter habit to delete"
-                autoFocus
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    handleDeleteHabit();
-                  }
-                }}
-              />
-            )}
-          </div>
+          <button className="add-habit-button" onClick={handleAddHabit}>
+            <span className="add-habit-icon">+</span>
+            Add habit
+          </button>
+          <button className="delete-habit-button" onClick={handleDeleteHabit}>
+            <span className="delete-habit-icon">-</span>
+            Delete habit
+          </button>
         </div>
         <nav>
           <Link to="/">Home</Link>
@@ -178,6 +201,11 @@ function Habits() {
         )}
       </div>
       <FriendsSidebar isOpen={isFriendsSidebarOpen} onClose={toggleFriendsSidebar} />
+      <AddHabitModal 
+        isOpen={isAddHabitModalOpen}
+        onClose={() => setIsAddHabitModalOpen(false)}
+        onSave={handleSaveHabit}
+      />
     </div>
   );
 }
