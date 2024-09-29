@@ -65,6 +65,10 @@ function AddHabitModal({ isOpen, onClose, onSave }) {
     if (friend.trim()) {
       setFriends([...friends, friend.trim()]);
       setFriend('');
+      axios
+      .post("http://localhost:3001/addFriend", { friends: {friend: friend.trim()} })
+      .then((result) => location.reload())
+      .catch((err) => console.log(error));
     }
   };
 
