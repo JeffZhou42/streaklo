@@ -148,13 +148,13 @@ function Habits() {
 
   const handleSaveHabit = (habitData) => {
     axios
-      .post("http://localhost:3001/addHabit", { "habitName": habitData.title, "goal": habitData.goal, "friends": habitData.friends.map(name => friend) })
+      .post("http://localhost:3001/addHabit", { habitName: habitData.title, goal: habitData.goal, friends: habitData.friends })
       .then((result) => location.reload())
       .catch((err) => console.log(error));
 
     const newHabitObject = {
       title: habitData.title,
-      emoji: "📌", // Default emoji
+      emoji: "", // Default emoji
       goal: habitData.goal,
       streak: 0,
       progress: 0,
