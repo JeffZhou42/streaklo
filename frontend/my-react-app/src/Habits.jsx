@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Habits.css';
-import axios from "axios";
 
 function HabitContainer({ title, emoji, goal, streak, progress, rank, friends }) {
   return (
@@ -33,68 +32,24 @@ function HabitContainer({ title, emoji, goal, streak, progress, rank, friends })
   );
 }
 
-function Habits() {
-  const [habit, setHabit] = useState([{habitName: "Gym"}]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/getHabit")
-      .then((result) => {
-        setHabit(result.data), location.update();
-      })
-      .catch((err) => console.log(err));
-  });
-
+function PlaceholderContainer() {
   return (
-    <div className="habits-page">
-      <header className="habits-header">
-        <button className="add-habit-button">Add Habit +</button>
-        <nav>
-          <Link to="/">Home 🏠</Link>
-          <Link to="/user">User 👤</Link>
-          <Link to="/habits" className="active">Habit 📊</Link>
-        </nav>
-      </header>
-      <div className="habits-grid">
-        <HabitContainer 
-          title={habit[0].habitName}
-          emoji="💪"
-          goal="Complete gym 5 times a week"
-          streak={habit[0].personalStreak}
-          progress={80}
-          rank="3rd place 🥉"
-          friends={[
-            { name: "Ray", streak: 7, medal: "🥇" },
-            { name: "Bob", streak: 5, medal: "🥈" },
-            { name: "Charlie", streak: 4, medal: "🥉" }
-          ]}
-        />
-        <HabitContainer 
-          title="Reading"
-          emoji="📚"
-          goal="Read for 30 minutes daily"
-          streak={5}
-          progress={75}
-          rank="2nd place 🥈"
-          friends={[
-            { name: "David", streak: 8, medal: "🥇" },
-            { name: "Eve", streak: 6, medal: "🥈" },
-            { name: "Frank", streak: 3, medal: "🥉" }
-          ]}
-        />
-        <HabitContainer 
-          title="Studying"
-          emoji="📝"
-          goal="Study for 2 hours daily"
-          streak={2}
-          progress={40}
-          rank="5th place"
-          friends={[
-            { name: "Grace", streak: 10, medal: "🥇" },
-            { name: "Henry", streak: 7, medal: "🥈" },
-            { name: "Ivy", streak: 5, medal: "🥉" }
-          ]}
-        />
+    <div className="habit-container placeholder">
+      <h2>No habits yet</h2>
+      <p>Add a new habit to get started!</p>
+      <div className="placeholder-icon">➕</div>
+    </div>
+  );
+}
+
+function FriendsSidebar({ isOpen, onClose }) {
+  return (
+    <div className={`friends-sidebar ${isOpen ? 'open' : ''}`}>
+      <button className="close-sidebar" onClick={onClose}>×</button>
+      <div className="sidebar-content">
+        <input type="text" className="search-friends" placeholder="Search..." />
+        <h2>friends</h2>
+        <button className="new-tab">+ New Friend</button>
       </div>
     </div>
   );
