@@ -404,3 +404,79 @@
 .new-tab:hover {
   background-color: #3c4043;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #303134;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.modal-content h2 {
+  color: #e8eaed;
+  margin-bottom: 15px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: #3c4043;
+  border: 1px solid #5f6368;
+  border-radius: 4px;
+  color: #e8eaed;
+}
+
+.friend-input {
+  display: flex;
+  gap: 10px;
+}
+
+.friend-input input {
+  flex-grow: 1;
+}
+
+.modal-content button {
+  background-color: #8ab4f8;
+  color: #202124;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #aecbfa;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.friend-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+  color: #e8eaed;
+}
+
+.friend-list li {
+  margin-bottom: 5px;
+}
