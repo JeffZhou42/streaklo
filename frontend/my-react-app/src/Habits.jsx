@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import './Habits.css';
+import axios from "axios";
 
 function HabitContainer({ title, emoji, goal, streak, progress, rank, friends }) {
   return (
@@ -33,6 +34,17 @@ function HabitContainer({ title, emoji, goal, streak, progress, rank, friends })
 }
 
 function Habits() {
+  const [habit, setHabit] = useState([{habitName: "Gym"}]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/getHabit")
+      .then((result) => {
+        setHabit(result.data), location.update();
+      })
+      .catch((err) => console.log(err));
+  });
+
   return (
     <div className="habits-page">
       <header className="habits-header">
@@ -45,14 +57,14 @@ function Habits() {
       </header>
       <div className="habits-grid">
         <HabitContainer 
-          title="Gym"
+          title={habit[0].habitName}
           emoji="💪"
           goal="Complete gym 5 times a week"
-          streak={3}
-          progress={60}
-          rank="4th place 🥉"
+          streak={habit[0].personalStreak}
+          progress={80}
+          rank="3rd place 🥉"
           friends={[
-            { name: "Alice", streak: 7, medal: "🥇" },
+            { name: "Ray", streak: 7, medal: "🥇" },
             { name: "Bob", streak: 5, medal: "🥈" },
             { name: "Charlie", streak: 4, medal: "🥉" }
           ]}

@@ -32,7 +32,7 @@ app.put("/updateUserHabits/:habit", (req, res) => {
 //habit stuff
 app.get("/getHabit", (req, res) => {
     HabitModel.find()
-      .then((habits) => res.json(habits))
+      .then((result) => res.json(result))
       .catch((err) => res.json(err));
 });
 
