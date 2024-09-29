@@ -32,88 +32,152 @@ function HabitContainer({ title, emoji, goal, streak, progress, rank, friends })
   );
 }
 
+function PlaceholderContainer() {
+  return (
+    <div className="habit-container placeholder">
+      <h2>No habits yet</h2>
+      <p>Add a new habit to get started!</p>
+      <div className="placeholder-icon">➕</div>
+    </div>
+  );
+}
+
+function FriendsSidebar({ isOpen, onClose }) {
+  return (
+    <div className={`friends-sidebar ${isOpen ? 'open' : ''}`}>
+      <button className="close-sidebar" onClick={onClose}>×</button>
+      <div className="sidebar-content">
+        <input type="text" className="search-friends" placeholder="Search..." />
+        <h2>friends</h2>
+        <button className="new-tab">+ New Friend</button>
+      </div>
+    </div>
+  );
+}
+
 function Habits() {
   const [isAddingHabit, setIsAddingHabit] = useState(false);
+  const [isDeletingHabit, setIsDeletingHabit] = useState(false);
   const [newHabit, setNewHabit] = useState('');
+  const [habitToDelete, setHabitToDelete] = useState('');
+  const [habits, setHabits] = useState([]);
+  const [isFriendsSidebarOpen, setIsFriendsSidebarOpen] = useState(false);
 
   const handleAddHabit = () => {
     if (isAddingHabit && newHabit.trim()) {
-      // Add the new habit logic here
-      console.log('New habit:', newHabit);
+      const newHabitObject = {
+        title: newHabit,
+        emoji: "📌", // Default emoji
+        goal: "New goal",
+        streak: 0,
+        progress: 0,
+        rank: "New",
+        friends: []
+      };
+      setHabits([...habits, newHabitObject]);
       setNewHabit('');
     }
     setIsAddingHabit(!isAddingHabit);
   };
 
+  const handleDeleteHabit = () => {
+    if (isDeletingHabit && habitToDelete.trim()) {
+      const updatedHabits = habits.filter(habit => 
+        habit.title.toLowerCase() !== habitToDelete.toLowerCase()
+      );
+      if (updatedHabits.length === habits.length) {
+        alert("Habit not found. Please check the habit name and try again.");
+      } else {
+        setHabits(updatedHabits);
+        setHabitToDelete('');
+      }
+    }
+    setIsDeletingHabit(!isDeletingHabit);
+  };
+
+  const toggleFriendsSidebar = () => {
+    setIsFriendsSidebarOpen(!isFriendsSidebarOpen);
+  };
+
   return (
     <div className="habits-page">
       <header className="habits-header">
-        <div className="add-habit-container">
-          <button 
-            className={`add-habit-button ${isAddingHabit ? 'active' : ''}`} 
-            onClick={handleAddHabit}
-          >
-            <span className="add-habit-icon">+</span>
-            {isAddingHabit ? 'Add' : 'Add habit'}
-          </button>
-          {isAddingHabit && (
-            <input
-              type="text"
-              className="add-habit-input"
-              value={newHabit}
-              onChange={(e) => setNewHabit(e.target.value)}
-              placeholder="Enter new habit"
-              autoFocus
-            />
-          )}
+        <div className="habit-actions">
+          <div className="add-habit-container">
+            <button 
+              className={`add-habit-button ${isAddingHabit ? 'active' : ''}`} 
+              onClick={handleAddHabit}
+            >
+              <span className="add-habit-icon">+</span>
+              {isAddingHabit ? 'Add' : 'Add habit'}
+            </button>
+            {isAddingHabit && (
+              <input
+                type="text"
+                className="add-habit-input"
+                value={newHabit}
+                onChange={(e) => setNewHabit(e.target.value)}
+                placeholder="Enter new habit"
+                autoFocus
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    handleAddHabit();
+                  }
+                }}
+              />
+            )}
+          </div>
+          <div className="delete-habit-container">
+            <button 
+              className={`delete-habit-button ${isDeletingHabit ? 'active' : ''}`} 
+              onClick={handleDeleteHabit}
+            >
+              <span className="delete-habit-icon">-</span>
+              {isDeletingHabit ? 'Delete' : 'Delete habit'}
+            </button>
+            {isDeletingHabit && (
+              <input
+                type="text"
+                className="delete-habit-input"
+                value={habitToDelete}
+                onChange={(e) => setHabitToDelete(e.target.value)}
+                placeholder="Enter habit to delete"
+                autoFocus
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    handleDeleteHabit();
+                  }
+                }}
+              />
+            )}
+          </div>
         </div>
         <nav>
           <Link to="/">Home</Link>
+          <button onClick={toggleFriendsSidebar}>Friends</button>
           <Link to="/user">User</Link>
           <Link to="/habits" className="active">Habit</Link>
         </nav>
       </header>
       <div className="habits-grid">
-        <HabitContainer 
-          title="Gym"
-          emoji="💪"
-          goal="Complete gym 5 times a week"
-          streak={3}
-          progress={60}
-          rank="4th place 🥉"
-          friends={[
-            { name: "Alice", streak: 7, medal: "🥇" },
-            { name: "Bob", streak: 5, medal: "🥈" },
-            { name: "Charlie", streak: 4, medal: "🥉" }
-          ]}
-        />
-        <HabitContainer 
-          title="Reading"
-          emoji="📚"
-          goal="Read for 30 minutes daily"
-          streak={5}
-          progress={75}
-          rank="2nd place 🥈"
-          friends={[
-            { name: "David", streak: 8, medal: "🥇" },
-            { name: "Eve", streak: 6, medal: "🥈" },
-            { name: "Frank", streak: 3, medal: "🥉" }
-          ]}
-        />
-        <HabitContainer 
-          title="Studying"
-          emoji="📝"
-          goal="Study for 2 hours daily"
-          streak={2}
-          progress={40}
-          rank="5th place"
-          friends={[
-            { name: "Grace", streak: 10, medal: "🥇" },
-            { name: "Henry", streak: 7, medal: "🥈" },
-            { name: "Ivy", streak: 5, medal: "🥉" }
-          ]}
-        />
+        {habits.length > 0 ? (
+          habits.map((habit, index) => (
+            <HabitContainer 
+              key={index}
+              title={habit.title}
+              emoji={habit.emoji}
+              goal={habit.goal}
+              streak={habit.streak}
+              progress={habit.progress}
+              rank={habit.rank}
+              friends={habit.friends}
+            />
+          ))
+        ) : (
+          <PlaceholderContainer />
+        )}
       </div>
+      <FriendsSidebar isOpen={isFriendsSidebarOpen} onClose={toggleFriendsSidebar} />
     </div>
   );
 }

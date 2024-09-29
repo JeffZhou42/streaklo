@@ -16,18 +16,16 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <div className="streaklo-header">
-          <h1 className="streaklo-text">Streaklo</h1>
-        </div>
         <Routes>
           <Route path="/" element={
             <>
-              <header className="greeting-header">
-                <div className="greeting-wrapper">
-                  <h1 className="greeting">hi, john. what's today going to look like?</h1>
-                </div>
+              <header className="streaklo-header">
+                <h1 className="streaklo-text">Streaklo </h1>
               </header>
-              <h2 className="recap-header">catch up</h2>
+              <div className="greeting-header">
+                <h2 className="greeting">Good morning, John</h2>
+              </div>
+              <h3 className="recap-header">what you've missed:</h3>
               <PhotoCarousel photos={photos} />
               <Link to="/habits" className="habits-link">
                 <span className="plus-symbol">+</span>

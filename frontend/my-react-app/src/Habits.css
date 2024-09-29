@@ -25,6 +25,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .add-habit-container {
@@ -80,15 +81,28 @@
   gap: 20px;
 }
 
-.habits-header nav a {
+.habits-header nav a,
+.habits-header nav button {
   text-decoration: none;
   color: #e8eaed;
   font-size: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.habits-header nav a:hover,
+.habits-header nav button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .habits-header nav a.active {
   color: #8ab4f8;
   font-weight: bold;
+  background-color: rgba(138, 180, 248, 0.1);
 }
 
 .habits-list {
@@ -244,4 +258,149 @@
   max-width: 1200px;
   margin: 0 auto;
   background-color: black;
+}
+
+/* Add these new styles */
+.habit-actions {
+  display: flex;
+  gap: 20px;
+}
+
+.delete-habit-container {
+  display: flex;
+  align-items: center;
+}
+
+.delete-habit-button {
+  background-color: transparent;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.delete-habit-button:hover,
+.delete-habit-button.active {
+  background-color: rgba(255, 77, 77, 0.1);
+}
+
+.delete-habit-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.delete-habit-input {
+  background-color: #303134;
+  color: #e8eaed;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  margin-left: 8px;
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.delete-habit-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #ff4d4d;
+}
+
+.habit-container.placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 300px;
+  background-color: #303134;
+  border: 2px dashed #8ab4f8;
+  opacity: 0.7;
+}
+
+.habit-container.placeholder h2 {
+  color: #8ab4f8;
+  margin-bottom: 10px;
+}
+
+.habit-container.placeholder p {
+  color: #e8eaed;
+  margin-bottom: 20px;
+}
+
+.placeholder-icon {
+  font-size: 48px;
+  color: #8ab4f8;
+}
+
+/* New styles for the Friends Sidebar */
+.friends-sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 300px;
+  height: 100vh;
+  background-color: #202124;
+  transition: left 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.friends-sidebar.open {
+  left: 0;
+}
+
+.close-sidebar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #e8eaed;
+  font-size: 18px; /* Reduced from 24px */
+  cursor: pointer;
+  padding: 4px 8px; /* Added padding for better clickability */
+  line-height: 1; /* Ensure proper vertical alignment */
+}
+
+.sidebar-content {
+  padding: 20px;
+}
+
+.search-friends {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #303134;
+  border: none;
+  border-radius: 20px;
+  color: #e8eaed;
+}
+
+.friends-sidebar h2 {
+  color: #e8eaed;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.new-tab {
+  width: 100%;
+  padding: 10px;
+  background-color: #303134;
+  border: none;
+  border-radius: 5px;
+  color: #e8eaed;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.new-tab:hover {
+  background-color: #3c4043;
 }
