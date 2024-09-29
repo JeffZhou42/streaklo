@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const HabitSchema = new mongoose.Schema({
     habitName: String,
     //streaks stored, personal streaks and friend streaks (combined)
-    goalDays: String,
+    goal: String,
     friends: {friend: String}
     /*imageList: [{
         dailyImage: String,
