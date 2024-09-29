@@ -1,33 +1,47 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Habits.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Habits.css";
 import axios from "axios";
 
-function HabitContainer({ title, emoji, goal, streak, progress, rank, friends }) {
+function HabitContainer({
+  title,
+  emoji,
+  goal,
+  streak,
+  progress,
+  rank,
+  friends,
+}) {
   return (
     <div className="habit-container">
-      <h2>{title} {emoji}</h2>
-      <p>Track your {title.toLowerCase()} {emoji} habit</p>
-      
+      <h2>
+        {title} {emoji}
+      </h2>
+      <p>
+        Track your {title.toLowerCase()} {emoji} habit
+      </p>
+
       <h3>Goal</h3>
       <p>{goal}</p>
-      
+
       <h3>Streak</h3>
       <p className="streak">{streak} days 🔥</p>
       <div className="progress-bar">
-        <div className="progress" style={{width: `${progress}%`}}></div>
+        <div className="progress" style={{ width: `${progress}%` }}></div>
       </div>
-      
+
       <h3>Your place</h3>
       <p>{rank}</p>
-      
+
       <h3>Highest streak friends</h3>
       <ul className="friend-list">
         {friends.map((friend, index) => (
-          <li key={index}>{friend.name} - {friend.streak} days {friend.medal}</li>
+          <li key={index}>
+            {friend.name} - {friend.streak} days {friend.medal}
+          </li>
         ))}
       </ul>
-      
+
       <button className="track-button">Track Today 📅</button>
     </div>
   );
@@ -45,8 +59,10 @@ function PlaceholderContainer() {
 
 function FriendsSidebar({ isOpen, onClose }) {
   return (
-    <div className={`friends-sidebar ${isOpen ? 'open' : ''}`}>
-      <button className="close-sidebar" onClick={onClose}>×</button>
+    <div className={`friends-sidebar ${isOpen ? "open" : ""}`}>
+      <button className="close-sidebar" onClick={onClose}>
+        ×
+      </button>
       <div className="sidebar-content">
         <input type="text" className="search-friends" placeholder="Search..." />
         <h2>friends</h2>
@@ -57,26 +73,32 @@ function FriendsSidebar({ isOpen, onClose }) {
 }
 
 function AddHabitModal({ isOpen, onClose, onSave }) {
-  const [title, setTitle] = useState('');
-  const handleAddHabit = () => {
-  };
-}
-  const [goal, setGoal] = useState('');
-  const handleAddGoal = () => {
-  const [friend, setFriend] = useState('');
+  const [title, setTitle] = useState("");
+  const [goal, setGoal] = useState("");
+  const [friend, setFriend] = useState("");
   const [friends, setFriends] = useState([]);
+  const handleAdd = () => {
+    axios
+      .post("http://localhost:3001/addHabit", {
+        habitName: title,
+        goal: goal,
+        friends: friend
+      })
+      .then((result) => location.reload())
+      .catch((err) => console.log(error));
+  };
 
   const handleAddFriend = () => {
     if (friend.trim()) {
       setFriends([...friends, friend.trim()]);
-      setFriend('');
+      setFriend("");
     }
   };
 
   const handleSave = () => {
     onSave({ title, goal, friends });
-    setTitle('');
-    setGoal('');
+    setTitle("");
+    setGoal("");
     setFriends([]);
     onClose();
   };
@@ -114,7 +136,7 @@ function AddHabitModal({ isOpen, onClose, onSave }) {
           ))}
         </ul>
         <div className="modal-actions">
-          <button onClick={handleSave}>Save</button>
+          <button onClick={() => {handleSave(), handleAdd()}}>Save</button>
           <button onClick={onClose}>Cancel</button>
         </div>
       </div>
@@ -125,8 +147,8 @@ function AddHabitModal({ isOpen, onClose, onSave }) {
 function Habits() {
   const [isAddingHabit, setIsAddingHabit] = useState(false);
   const [isDeletingHabit, setIsDeletingHabit] = useState(false);
-  const [newHabit, setNewHabit] = useState('');
-  const [habitToDelete, setHabitToDelete] = useState('');
+  const [newHabit, setNewHabit] = useState("");
+  const [habitToDelete, setHabitToDelete] = useState("");
   const [habits, setHabits] = useState([]);
   const [isFriendsSidebarOpen, setIsFriendsSidebarOpen] = useState(false);
   const [isAddHabitModalOpen, setIsAddHabitModalOpen] = useState(false);
@@ -148,21 +170,25 @@ function Habits() {
       streak: 0,
       progress: 0,
       rank: "New",
-      friends: habitData.friends.map(name => ({ name, streak: 0, medal: '🥉' }))
+      friends: habitData.friends.map((name) => ({
+        name,
+        streak: 0,
+        medal: "🥉",
+      })),
     };
     setHabits([...habits, newHabitObject]);
   };
 
   const handleDeleteHabit = () => {
     if (isDeletingHabit && habitToDelete.trim()) {
-      const updatedHabits = habits.filter(habit => 
-        habit.title.toLowerCase() !== habitToDelete.toLowerCase()
+      const updatedHabits = habits.filter(
+        (habit) => habit.title.toLowerCase() !== habitToDelete.toLowerCase()
       );
       if (updatedHabits.length === habits.length) {
         alert("Habit not found. Please check the habit name and try again.");
       } else {
         setHabits(updatedHabits);
-        setHabitToDelete('');
+        setHabitToDelete("");
       }
     }
     setIsDeletingHabit(!isDeletingHabit);
@@ -189,13 +215,15 @@ function Habits() {
           <Link to="/">Home</Link>
           <button onClick={toggleFriendsSidebar}>Friends</button>
           <Link to="/user">User</Link>
-          <Link to="/habits" className="active">Habit</Link>
+          <Link to="/habits" className="active">
+            Habit
+          </Link>
         </nav>
       </header>
       <div className="habits-grid">
         {habits.length > 0 ? (
           habits.map((habit, index) => (
-            <HabitContainer 
+            <HabitContainer
               key={index}
               title={habit.title}
               emoji={habit.emoji}
@@ -210,8 +238,11 @@ function Habits() {
           <PlaceholderContainer />
         )}
       </div>
-      <FriendsSidebar isOpen={isFriendsSidebarOpen} onClose={toggleFriendsSidebar} />
-      <AddHabitModal 
+      <FriendsSidebar
+        isOpen={isFriendsSidebarOpen}
+        onClose={toggleFriendsSidebar}
+      />
+      <AddHabitModal
         isOpen={isAddHabitModalOpen}
         onClose={() => setIsAddHabitModalOpen(false)}
         onSave={handleSaveHabit}
