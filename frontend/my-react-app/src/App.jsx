@@ -25,7 +25,7 @@ function App() {
               <div className="greeting-header">
                 <h2 className="greeting">Good morning, John</h2>
               </div>
-              <h3 className="recap-header">what you've missed:</h3>
+              <h3 className="recap-header">What you've missed:</h3>
               <PhotoCarousel photos={photos} />
               <Link to="/habits" className="habits-link">
                 <span className="plus-symbol">+</span>
@@ -39,6 +39,5 @@ function App() {
     </Router>
   );
 }
-/* This is a test */
 
 export default App;
