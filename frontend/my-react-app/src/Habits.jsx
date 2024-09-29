@@ -57,7 +57,19 @@ function FriendsSidebar({ isOpen, onClose }) {
 
 function AddHabitModal({ isOpen, onClose, onSave }) {
   const [title, setTitle] = useState('');
+  const handleAddHabit = () => {
+    axios
+      .post("http://localhost:3001/addHabit", { habitName: title })
+      .then((result) => location.reload())
+      .catch((err) => console.log(error));
+  };
+}
   const [goal, setGoal] = useState('');
+  const handleAddGoal = () => {
+    axios
+      .post("http://localhost:3001/addGoal", { goals: goal })
+      .then((result) => location.reload())
+      .catch((err) => console.log(error));
   const [friend, setFriend] = useState('');
   const [friends, setFriends] = useState([]);
 
@@ -66,7 +78,7 @@ function AddHabitModal({ isOpen, onClose, onSave }) {
       setFriends([...friends, friend.trim()]);
       setFriend('');
       axios
-      .post("http://localhost:3001/addFriend", { friends: {friend: friend.trim()} })
+      .post("http://localhost:3001/addFriend", { friends: friends })
       .then((result) => location.reload())
       .catch((err) => console.log(error));
     }
@@ -137,7 +149,7 @@ function Habits() {
   const handleSaveHabit = (habitData) => {
     const newHabitObject = {
       title: habitData.title,
-      emoji: "", // Default emoji
+      emoji: "📌", // Default emoji
       goal: habitData.goal,
       streak: 0,
       progress: 0,
