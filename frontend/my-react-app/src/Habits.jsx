@@ -147,6 +147,11 @@ function Habits() {
   };
 
   const handleSaveHabit = (habitData) => {
+    axios
+      .post("http://localhost:3001/addHabit", { "habitName": habitData.title, "goal": habitData.goal, "friends": habitData.friends.map(name => friend) })
+      .then((result) => location.reload())
+      .catch((err) => console.log(error));
+
     const newHabitObject = {
       title: habitData.title,
       emoji: "📌", // Default emoji
