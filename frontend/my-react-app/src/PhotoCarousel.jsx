@@ -52,12 +52,13 @@ function PhotoCarousel({ photos, speed = 10000 }) { // speed in milliseconds for
     <div className="photo-carousel" ref={carouselRef}>
       <div className="carousel-container" style={containerStyle}>
         {displayPhotos.map((photo, index) => (
-          <img 
-            key={index}
-            src={photo} 
-            alt={`Photo ${index + 1}`} 
-            className="carousel-image" 
-          />
+          <div key={index} className="carousel-image-wrapper">
+            <img 
+              src={photo} 
+              alt={`Photo ${index + 1}`} 
+              className="carousel-image" 
+            />
+          </div>
         ))}
       </div>
     </div>
