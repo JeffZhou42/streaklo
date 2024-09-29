@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-=======
 import React, { useState, useEffect } from "react";
->>>>>>> 12c3781250c4d7ade394240907275f1d92aee498
 import { Link } from 'react-router-dom';
 import './Habits.css';
 import axios from "axios";
@@ -37,26 +33,6 @@ function HabitContainer({ title, emoji, goal, streak, progress, rank, friends })
   );
 }
 
-<<<<<<< HEAD
-function PlaceholderContainer() {
-  return (
-    <div className="habit-container placeholder">
-      <h2>No habits yet</h2>
-      <p>Add a new habit to get started!</p>
-      <div className="placeholder-icon">➕</div>
-    </div>
-  );
-}
-
-function FriendsSidebar({ isOpen, onClose }) {
-  return (
-    <div className={`friends-sidebar ${isOpen ? 'open' : ''}`}>
-      <button className="close-sidebar" onClick={onClose}>×</button>
-      <div className="sidebar-content">
-        <input type="text" className="search-friends" placeholder="Search..." />
-        <h2>friends</h2>
-        <button className="new-tab">+ New Friend</button>
-=======
 function Habits() {
   const [habit, setHabit] = useState([{habitName: "Gym"}]);
 
@@ -119,7 +95,6 @@ function Habits() {
             { name: "Ivy", streak: 5, medal: "🥉" }
           ]}
         />
->>>>>>> 12c3781250c4d7ade394240907275f1d92aee498
       </div>
     </div>
   );
