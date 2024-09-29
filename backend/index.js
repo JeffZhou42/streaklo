@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 //const db = connectDB();
 
-mongoose.connect("mongodb+srv://azhou322:Test1234@cluster0.67qj6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+mongoose.connect("mongodb+srv://azhou322:Test1234@cluster0.67qj6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/test");
 
 //user stuff
 app.get("/getUser", (req, res) => {
