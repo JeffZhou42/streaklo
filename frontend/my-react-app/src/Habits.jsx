@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Habits.css';
+import axios from 'axios';
 
 function HabitContainer({ title, emoji, goal, streak, progress, rank, friends }) {
   return (
@@ -109,7 +110,7 @@ function AddHabitModal({ isOpen, onClose, onSave }) {
           ))}
         </ul>
         <div className="modal-actions">
-          <button onClick={handleSave}>Save</button>
+          <button onClick={() => {handleSave(); importToMongo()}}>Save</button>
           <button onClick={onClose}>Cancel</button>
         </div>
       </div>
@@ -131,9 +132,10 @@ function Habits() {
   };
 
   const handleSaveHabit = (habitData) => {
+
     const newHabitObject = {
       title: habitData.title,
-      emoji: "📌", // Default emoji
+      emoji: "", // Default emoji
       goal: habitData.goal,
       streak: 0,
       progress: 0,
@@ -143,6 +145,13 @@ function Habits() {
     setHabits([...habits, newHabitObject]);
   };
 
+  const importToMongo = (habitData) => {
+    axios
+      .post("http://localhost:3001/addHabit", { habitName: habitData.title, goal: habitData.goal, /*friends: habitData.friends*/ })
+      .then((result) => location.reload())
+      .catch((err) => console.log(err));
+  };
+  
   const handleDeleteHabit = () => {
     if (isDeletingHabit && habitToDelete.trim()) {
       const updatedHabits = habits.filter(habit => 
